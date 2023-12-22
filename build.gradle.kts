@@ -61,13 +61,6 @@ fun excludePackageFromJacocoTask(task: JacocoReportBase, packages: List<String>)
 
 tasks.jacocoTestReport {
     excludePackageFromJacocoTask(this, excludeDirectories)
-
-    classDirectories.setFrom(
-            classDirectories.files.filter { file ->
-                val filePath = file.toString()
-                !filePath.contains("com/crux/society/SocietyApplication.class")
-            }
-    )
 }
 
 tasks.jacocoTestCoverageVerification {
@@ -79,13 +72,6 @@ tasks.jacocoTestCoverageVerification {
         }
     }
     excludePackageFromJacocoTask(this, excludeDirectories)
-
-    classDirectories.setFrom(
-            classDirectories.files.filter { file ->
-                val filePath = file.toString()
-                !filePath.contains("com/crux/society/SocietyApplication.class")
-            }
-    )
 }
 
 checkstyle {
