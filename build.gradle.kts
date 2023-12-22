@@ -7,7 +7,6 @@ plugins {
     id("org.springframework.boot") version "3.2.0"
     id("io.spring.dependency-management") version "1.1.4"
     id("io.freefair.lombok") version "8.4"
-    id("org.flywaydb.flyway") version "10.4.0"
 }
 
 group = "com.crux"
@@ -25,6 +24,8 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-webflux")
     implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
     implementation("org.postgresql:r2dbc-postgresql:1.0.3.RELEASE")
+    implementation("org.flywaydb:flyway-core")
+    runtimeOnly("org.postgresql:postgresql")
     testImplementation("org.springframework.boot:spring-boot-testcontainers")
     testImplementation("org.testcontainers:junit-jupiter")
     testImplementation("org.testcontainers:postgresql:+")
