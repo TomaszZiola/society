@@ -23,6 +23,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-webflux")
     implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.postgresql:r2dbc-postgresql:1.0.3.RELEASE")
     implementation("org.flywaydb:flyway-core")
     runtimeOnly("org.postgresql:postgresql")

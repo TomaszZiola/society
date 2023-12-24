@@ -1,5 +1,7 @@
 package com.crux.society.models;
 
-public record RegisterProfileDto(String name, String secondName) {
+import jakarta.annotation.Nonnull;
+
+public record RegisterProfileDto(@Nonnull String name, @Nonnull String secondName) {
 
 }

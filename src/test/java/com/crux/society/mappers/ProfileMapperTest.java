@@ -19,6 +19,6 @@ public class ProfileMapperTest extends BaseUnitTest {
   @DisplayName("ProfileMapper#toProfile should map Profile to RegisterProfileResponseDto")
   public void toProfileResponseDtoTest() {
     var result = mapperImpl.toProfileResponseDto(profile);
-    assertThat(result).isEqualTo(registerProfileResponseDto);
+    assertThat(result).isEqualTo(profileResponseDto);
   }
 }

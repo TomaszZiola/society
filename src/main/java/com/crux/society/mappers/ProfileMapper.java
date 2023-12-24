@@ -1,7 +1,7 @@
 package com.crux.society.mappers;
 
 import com.crux.society.models.RegisterProfileDto;
-import com.crux.society.models.RegisterProfileResponseDto;
+import com.crux.society.models.ProfileResponseDto;
 import com.crux.society.models.entities.Profile;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +12,7 @@ public class ProfileMapper {
     return new Profile(null, dto.name(), dto.secondName());
   }
 
-  public RegisterProfileResponseDto toProfileResponseDto(Profile profile) {
-    return new RegisterProfileResponseDto(profile.getName(), profile.getSecondName());
+  public ProfileResponseDto toProfileResponseDto(Profile profile) {
+    return new ProfileResponseDto(profile.getName(), profile.getSecondName());
   }
 }
