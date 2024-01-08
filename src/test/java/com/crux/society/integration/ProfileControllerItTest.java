@@ -7,8 +7,8 @@ import static reactor.test.StepVerifier.create;
 
 import com.crux.society.models.ProfileModel;
 import com.crux.society.models.ProfileResponseDto;
-import com.crux.society.models.RegisterProfileDtoModel;
 import com.crux.society.models.ProfileResponseDtoModel;
+import com.crux.society.models.RegisterProfileDtoModel;
 import com.crux.society.repositories.ProfileRepository;
 import com.crux.society.utils.BaseIntegrationTest;
 import org.junit.jupiter.api.DisplayName;
@@ -44,7 +44,10 @@ public class ProfileControllerItTest extends BaseIntegrationTest {
     create(repository.findById(1L))
         .expectSubscription()
         .expectNextMatches(
-            profile -> profile.getId().equals(1L) && profile.getName().equals("Tomasz"))
+            profile ->
+                profile.getId().equals(1L)
+                    && profile.getName().equals(expected.name())
+                    && profile.getSecondName().equals(expected.secondName()))
         .verifyComplete();
 
     // then
@@ -62,14 +65,14 @@ public class ProfileControllerItTest extends BaseIntegrationTest {
 
     // when
     var response =
-            webTestClient
-                    .get()
-                    .uri("/society/1")
-                    .exchange()
-                    .expectStatus()
-                    .isOk()
-                    .expectBody(ProfileResponseDto.class)
-                    .returnResult();
+        webTestClient
+            .get()
+            .uri("/society/1")
+            .exchange()
+            .expectStatus()
+            .isOk()
+            .expectBody(ProfileResponseDto.class)
+            .returnResult();
 
     // then
     var responseBody = response.getResponseBody();

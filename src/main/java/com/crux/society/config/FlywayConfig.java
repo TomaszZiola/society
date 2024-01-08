@@ -6,6 +6,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
+import static org.flywaydb.core.Flyway.configure;
+
 @Configuration
 @RequiredArgsConstructor
 public class FlywayConfig {
@@ -14,7 +16,7 @@ public class FlywayConfig {
 
     @Bean(initMethod = "migrate")
     public Flyway flyway() {
-        return new Flyway(Flyway.configure()
+        return new Flyway(configure()
                 .dataSource(
                         env.getRequiredProperty("spring.flyway.url"),
                         env.getRequiredProperty("spring.flyway.user"),
