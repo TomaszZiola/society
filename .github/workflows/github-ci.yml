@@ -22,8 +22,12 @@ jobs:
       - name: Run Main Pipeline
         run: |
           cd .github/workflows
-          pwd
-          ls -l
+          echo "Files in .github/workflows:"
+          find .
+          
           git checkout master
-          ls -l
+          
+          echo "Files after checking out 'master':"
+          find .
+          
           bash main_pipe.yml
