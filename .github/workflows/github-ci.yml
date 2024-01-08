@@ -17,7 +17,10 @@ jobs:
         with:
           repository: TomaszZiola/workflow-library
           ref: master
-          path: workflow-library/V1/pipelines/main_pipe.yml
+          path: .github/workflows
 
       - name: Run Main Pipeline
-        run: gh workflow run main_pipe.yml
+        run: |
+          cd .github/workflows
+          git checkout master
+          bash V1/pipelines/abstract/test_gradle.yml
