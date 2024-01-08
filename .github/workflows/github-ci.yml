@@ -1,19 +1,25 @@
-name: Society workflow
+name: Main Workflow
 
 on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
-  workflow_dispatch:
 
 jobs:
-  hello:
+  run_workflow_job:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: hello
-        run: echo "hello"
-        shell: bash
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Include Workflow from workflow-library
+        uses: actions/checkout@v2
+        with:
+          repository: TomaszZiola/workflow-library
+          ref: master
+          path: workflow-library/V1/pipelines/main_pipe.yml
+
+      - name: Run Main Pipeline
+        run: |
+          cd workflow-library/V1/pipelines
+          bash main_pipe.yml  # Assuming it's a bash script, adjust accordingly
