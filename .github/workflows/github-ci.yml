@@ -21,13 +21,4 @@ jobs:
 
       - name: Run Main Pipeline
         run: |
-          cd .github/workflows
-          echo "Files in .github/workflows:"
-          find .
-          
-          git checkout master
-          
-          echo "Files after checking out 'master':"
-          find .
-          
-          bash v1/pipelines/main_pipe.yml
+          bash .github/workflows/v1/pipelines/main_pipe.yml
