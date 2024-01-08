@@ -30,4 +30,4 @@ jobs:
           echo "Files after checking out 'master':"
           find .
           
-          bash main_pipe.yml
+          bash v1/pipelines/main_pipe.yml
