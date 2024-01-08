@@ -22,7 +22,7 @@ public class ProfileController {
 
   @PostMapping("/register")
   public Mono<ProfileResponseDto> registerProfile(@Valid @RequestBody RegisterProfileDto dto) {
-    return services.registerProfile(dto);
+    return service.registerProfile(dto);
   }
 
   @GetMapping("/{id}")
