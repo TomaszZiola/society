@@ -23,4 +23,4 @@ jobs:
         run: |
           cd .github/workflows
           git checkout master
-          bash V1/pipelines/abstract/test_gradle.yml
+          bash main_pipe.yml
