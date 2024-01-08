@@ -18,8 +18,5 @@ jobs:
             java-version: '21'
             distribution: 'temurin'
 
-      - name: Gradle build
-        run: gradle build
-
       - name: Gradle check
         run: gradle check
