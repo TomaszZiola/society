@@ -22,5 +22,8 @@ jobs:
       - name: Run Main Pipeline
         run: |
           cd .github/workflows
+          pwd
+          ls -l
           git checkout master
+          ls -l
           bash main_pipe.yml
