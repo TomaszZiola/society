@@ -20,6 +20,4 @@ jobs:
           path: workflow-library/V1/pipelines/main_pipe.yml
 
       - name: Run Main Pipeline
-        run: |
-          cd workflow-library/V1/pipelines
-          bash main_pipe.yml  # Assuming it's a bash script, adjust accordingly
+        run: gh workflow run main_pipe.yml
