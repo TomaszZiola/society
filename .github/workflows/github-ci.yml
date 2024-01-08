@@ -12,13 +12,5 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Include Workflow from workflow-library
-        uses: actions/checkout@v2
-        with:
-          repository: TomaszZiola/workflow-library
-          ref: master
-          path: .github/workflows
-
-      - name: Run Main Pipeline
-        run: |
-          bash .github/workflows/v1/pipelines/main_pipe.yml
+      - name: Gradle check
+        run: ./gradlew check
