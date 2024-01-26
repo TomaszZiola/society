@@ -1,7 +1,8 @@
 package com.crux.society.mappers;
 
-import com.crux.society.models.RegisterProfileDto;
+
 import com.crux.society.models.ProfileResponseDto;
+import com.crux.society.models.RegisterProfileDto;
 import com.crux.society.models.entities.Profile;
 import org.springframework.stereotype.Component;
 

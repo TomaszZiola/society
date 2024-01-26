@@ -22,12 +22,8 @@ public abstract class BaseIntegrationTest {
 
   @DynamicPropertySource
   public static void containerConfig(DynamicPropertyRegistry registry) {
-    registry.add(
-        "spring.r2dbc.url", () -> POSTGRES_CONTAINER.getJdbcUrl().replace("jdbc", "r2dbc"));
-    registry.add("spring.r2dbc.username", POSTGRES_CONTAINER::getUsername);
-    registry.add("spring.r2dbc.password", POSTGRES_CONTAINER::getPassword);
-    registry.add("spring.flyway.url", POSTGRES_CONTAINER::getJdbcUrl);
-    registry.add("spring.flyway.user", POSTGRES_CONTAINER::getUsername);
-    registry.add("spring.flyway.password", POSTGRES_CONTAINER::getPassword);
+    registry.add("spring.datasource.url", POSTGRES_CONTAINER::getJdbcUrl);
+    registry.add("spring.datasource.username", POSTGRES_CONTAINER::getUsername);
+    registry.add("spring.datasource.password", POSTGRES_CONTAINER::getPassword);
   }
 }
