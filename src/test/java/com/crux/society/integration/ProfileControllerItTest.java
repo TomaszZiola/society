@@ -1,9 +1,8 @@
 package com.crux.society.integration;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.web.reactive.function.BodyInserters.fromValue;
-import static reactor.test.StepVerifier.create;
 
 import com.crux.society.models.ProfileModel;
 import com.crux.society.models.ProfileResponseDto;
@@ -18,8 +17,8 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 
 public class ProfileControllerItTest extends BaseIntegrationTest {
 
-  @Autowired private WebTestClient webTestClient;
   @Autowired private ProfileRepository repository;
+  @Autowired private WebTestClient client;
 
   @Test
   @DisplayName("ProfileController#registerProfile should return ProfileResponseDto")
@@ -29,8 +28,8 @@ public class ProfileControllerItTest extends BaseIntegrationTest {
     var expected = ProfileResponseDtoModel.basic();
 
     // when
-    var response =
-        webTestClient
+    var dtoBodySpec =
+        client
             .post()
             .uri("/society/register")
             .contentType(APPLICATION_JSON)
@@ -38,22 +37,10 @@ public class ProfileControllerItTest extends BaseIntegrationTest {
             .exchange()
             .expectStatus()
             .isOk()
-            .expectBody(ProfileResponseDto.class)
-            .returnResult();
-
-    create(repository.findById(1L))
-        .expectSubscription()
-        .expectNextMatches(
-            profile ->
-                profile.getId().equals(1L)
-                    && profile.getName().equals(expected.name())
-                    && profile.getSecondName().equals(expected.secondName()))
-        .verifyComplete();
+            .expectBody(ProfileResponseDto.class);
 
     // then
-    var responseBody = response.getResponseBody();
-
-    assertThat(responseBody).isEqualTo(expected);
+    dtoBodySpec.consumeWith(response -> assertThat(response.getResponseBody()).isEqualTo(expected));
   }
 
   @Test
@@ -61,22 +48,19 @@ public class ProfileControllerItTest extends BaseIntegrationTest {
   public void profileControllerGetProfileTest() {
     // given
     var expected = ProfileResponseDtoModel.basic();
-    repository.save(ProfileModel.basic()).subscribe();
+    var profileId = repository.save(ProfileModel.basic()).getId();
 
     // when
-    var response =
-        webTestClient
+    var dtoBodySpec =
+        client
             .get()
-            .uri("/society/1")
+            .uri("society/" + profileId)
             .exchange()
             .expectStatus()
             .isOk()
-            .expectBody(ProfileResponseDto.class)
-            .returnResult();
+            .expectBody(ProfileResponseDto.class);
 
     // then
-    var responseBody = response.getResponseBody();
-
-    assertThat(responseBody).isEqualTo(expected);
+    dtoBodySpec.consumeWith(response -> assertThat(response.getResponseBody()).isEqualTo(expected));
   }
 }

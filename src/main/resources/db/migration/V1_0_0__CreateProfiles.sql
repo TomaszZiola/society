@@ -1,4 +1,4 @@
-CREATE SEQUENCE profile_id_seq START 1;
+CREATE SEQUENCE public.profile_id_seq INCREMENT 1 START WITH 1 MINVALUE 1;
 
 CREATE TABLE profile
 (
