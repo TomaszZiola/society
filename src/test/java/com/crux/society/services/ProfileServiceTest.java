@@ -18,8 +18,8 @@ public class ProfileServiceTest extends BaseUnitTest {
     // then
     assertThat(result).isEqualTo(profileResponseDto);
 
-    verify(mapper).toProfile(registerProfileDto);
-    verify(mapper).toProfileResponseDto(profile);
+    verify(profileMapper).toProfile(registerProfileDto);
+    verify(profileMapper).toProfileResponseDto(profile);
     verify(repository).save(profile);
   }
 
@@ -31,7 +31,7 @@ public class ProfileServiceTest extends BaseUnitTest {
 
     // then
     assertThat(result).isEqualTo(profileResponseDto);
-    verify(mapper).toProfileResponseDto(profile);
+    verify(profileMapper).toProfileResponseDto(profile);
     verify(repository).findById(1L);
   }
 }
