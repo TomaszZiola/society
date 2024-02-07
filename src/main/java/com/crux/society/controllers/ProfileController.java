@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/society")
 @RequiredArgsConstructor
+@RequestMapping(value = "/society")
 public class ProfileController {
 
   private final ProfileService service;

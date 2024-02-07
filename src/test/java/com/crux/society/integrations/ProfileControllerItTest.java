@@ -15,7 +15,6 @@ import com.crux.society.utils.BaseIntegrationTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 public class ProfileControllerItTest extends BaseIntegrationTest {
@@ -50,8 +49,8 @@ public class ProfileControllerItTest extends BaseIntegrationTest {
   @DisplayName("ProfileController#getProfile should return ProfileResponseDto")
   public void profileControllerGetProfileTest() {
     // given
-    var expected = ProfileResponseDtoModel.basic();
     var profileId = repository.save(ProfileModel.basic()).getId();
+    var expected = ProfileResponseDtoModel.basic();
 
     // when
     var dtoBodySpec =
@@ -72,16 +71,24 @@ public class ProfileControllerItTest extends BaseIntegrationTest {
   public void profileControllerGetProfileNotFoundTest() {
     // when
     var dtoBodySpec =
-            client
-                    .get()
-                    .uri("society/1")
-                    .exchange()
-                    .expectStatus()
-                    .isNotFound()
-                    .expectBody(ResponseEntity.class);
+        client
+            .get()
+            .uri("society/1")
+            .exchange()
+            .expectStatus()
+            .isNotFound()
+            .expectBody(String.class);
 
     // then
     dtoBodySpec.consumeWith(
-        response -> assertThat(response.getStatus()).isEqualTo(valueOf(NOT_FOUND.value())));
+        response -> {
+          assertThat(response.getStatus()).isEqualTo(valueOf(NOT_FOUND.value()));
+          assertThat(response.getResponseBody())
+              .isEqualTo(
+                  """
+                        {"message":"Profile not found with ID: 1"}
+                  """
+                      .trim());
+        });
   }
 }
