@@ -1,5 +1,6 @@
 package com.crux.society.services;
 
+import com.crux.society.exceptions.ProfileNotFoundException;
 import com.crux.society.mappers.ProfileMapper;
 import com.crux.society.models.ProfileResponseDto;
 import com.crux.society.models.RegisterProfileDto;
@@ -22,7 +23,9 @@ public class ProfileService {
   }
 
   public ProfileResponseDto findById(Long id) {
-    return repository.findById(id).map(mapper::toProfileResponseDto)
-            .orElseThrow();
+    return repository
+        .findById(id)
+        .map(mapper::toProfileResponseDto)
+        .orElseThrow(() -> new ProfileNotFoundException("Profile not found with ID: " + id));
   }
 }

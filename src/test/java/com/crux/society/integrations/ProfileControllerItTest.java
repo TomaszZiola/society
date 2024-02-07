@@ -1,6 +1,8 @@
-package com.crux.society.integration;
+package com.crux.society.integrations;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.http.HttpStatusCode.valueOf;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.web.reactive.function.BodyInserters.fromValue;
 
@@ -13,6 +15,7 @@ import com.crux.society.utils.BaseIntegrationTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 public class ProfileControllerItTest extends BaseIntegrationTest {
@@ -62,5 +65,23 @@ public class ProfileControllerItTest extends BaseIntegrationTest {
 
     // then
     dtoBodySpec.consumeWith(response -> assertThat(response.getResponseBody()).isEqualTo(expected));
+  }
+
+  @Test
+  @DisplayName("ProfileController#getProfile should return Exception when profile not found")
+  public void profileControllerGetProfileNotFoundTest() {
+    // when
+    var dtoBodySpec =
+            client
+                    .get()
+                    .uri("society/1")
+                    .exchange()
+                    .expectStatus()
+                    .isNotFound()
+                    .expectBody(ResponseEntity.class);
+
+    // then
+    dtoBodySpec.consumeWith(
+        response -> assertThat(response.getStatus()).isEqualTo(valueOf(NOT_FOUND.value())));
   }
 }

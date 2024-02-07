@@ -12,7 +12,7 @@ public class ProfileMapperTest extends BaseUnitTest {
   @DisplayName("ProfileMapper#toProfile should map RegisterProfileDto to Profile")
   public void toProfileTest() {
     var result = mapperImpl.toProfile(registerProfileDto);
-    assertThat(result).isEqualTo(profile);
+    assertThat(result).usingRecursiveComparison().isEqualTo(unpersistedProfile);
   }
 
   @Test
